@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Grant Henry Karel Music Foundation supports the Filer High School music program through donations and community involvement.">
+    <title>Grant Henry Karel Music Foundation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: #1a3c34;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        header h1 {
+            font-size: 2rem;
+        }
+
+        .hero {
+            background: url('https://via.placeholder.com/1200x400?text=Music+Program') center/cover;
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            background: #e67e22;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #d35400;
+        }
+
+        .section {
+            padding: 3rem 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .donate {
+            background: #f9f9f9;
+        }
+
+        footer {
+            background: #1a3c34;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        footer a {
+            color: #e67e22;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Grant Henry Karel Music Foundation</h1>
+    </header>
+
+    <section class="hero">
+        <h2>Honoring Grant Through Music</h2>
+        <p>Support the Filer High School music program in memory of Grant Karel.</p>
+        <a href="#donate" class="btn">Donate Now</a>
+    </section>
+
+    <section class="section">
+        <h3>About the Foundation</h3>
+        <p>Inspired by Grant Karel’s passion for music, our foundation provides instruments, lessons, and opportunities for Filer High School students to shine. We believe music builds community and transforms lives.</p>
+    </section>
+
+    <section class="section donate" id="donate">
+        <h3>Make a Difference</h3>
+        <p>Your donation helps fund instruments, scholarships, and music programs for Filer High School students.</p>
+        <!-- PayPal Donate Button -->
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL_OR_ID" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+        </form>
+        <p><em>Replace "YOUR_PAYPAL_EMAIL_OR_ID" with your PayPal account email or ID. For Stripe, use their Checkout integration instead.</em></p>
+    </section>
+
+    <section class="section">
+        <h3>Get Involved</h3>
+        <p>Join us by volunteering, attending events, or following our journey on <a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Facebook</a>.</p>
+        <p>Contact us at: <a href="mailto:info@grantkarelmusic.org">info@grantkarelmusic.org</a></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Grant Henry Karel Music Foundation. A nonprofit supporting Filer High School music education.</p>
+        <p><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Follow us on Facebook</a></p>
+    </footer>
+
+    <script>
+        // Smooth scroll for Donate button
+        document.querySelector('.btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#donate').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
