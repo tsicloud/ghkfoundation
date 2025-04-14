@@ -14,7 +14,7 @@
         }
 
         body {
-            color: #333; /* Main body text back to black */
+            color: #333; /* Main body text black */
             line-height: 1.6;
         }
 
@@ -51,54 +51,95 @@
             color: #A91B31; /* Darker red for hover */
         }
 
-        /* Hero */
+        /* Hero Section */
         .hero {
-            background: url('https://via.placeholder.com/1200x400?text=Students+Playing+Music') center/cover;
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            background: #1C2526; /* Dark navy blue background */
             color: white;
+            padding: 4rem 2rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            justify-content: center;
             position: relative;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 48, 135, 0.5); /* Navy blue overlay */
+        .hero-left, .hero-right {
+            flex: 1;
+            max-width: 600px;
         }
 
-        .hero h2 {
-            font-size: 2.5rem;
+        .hero-left .tagline {
+            font-size: 1rem;
+            text-transform: uppercase;
             margin-bottom: 1rem;
-            z-index: 1;
+            position: relative;
         }
 
-        .hero p {
-            font-size: 1.2rem;
+        .hero-left .tagline::before {
+            content: '';
+            width: 50px;
+            height: 2px;
+            background: #C41E3A; /* Red line */
+            position: absolute;
+            top: -10px;
+        }
+
+        .hero-left h2 {
+            font-size: 3rem;
             margin-bottom: 1.5rem;
-            z-index: 1;
         }
 
-        .btn {
-            background: #C41E3A; /* Red for buttons */
-            color: white;
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            border-radius: 5px;
+        .hero-left .hero-img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 50%;
+            border: 5px solid #C41E3A; /* Red border */
+        }
+
+        .hero-right .hero-img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 50%;
+            border: 5px solid #C41E3A; /* Red border */
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-right .stats {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-right .stat {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hero-right .stat-number {
+            font-size: 2rem;
             font-weight: bold;
-            z-index: 1;
         }
 
-        .btn:hover {
-            background: #A91B31; /* Darker red for hover */
+        .hero-right .stat-label {
+            font-size: 1.1rem;
         }
+
+        .hero-right p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero .sparkle {
+            position: absolute;
+            color: #C41E3A; /* Red sparkles */
+            font-size: 1.5rem;
+        }
+
+        .sparkle-1 { top: 20px; right: 20px; }
+        .sparkle-2 { top: 100px; left: 50px; }
+        .sparkle-3 { bottom: 50px; right: 100px; }
 
         /* Sections */
         .section {
@@ -199,6 +240,20 @@
             text-align: center;
         }
 
+        .btn {
+            background: #C41E3A; /* Red for buttons */
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #A91B31; /* Darker red for hover */
+        }
+
         /* Footer */
         footer {
             background: #C41E3A; /* Red footer background */
@@ -218,16 +273,30 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .about-grant {
+            .hero {
                 flex-direction: column;
+                text-align: center;
             }
 
-            .hero h2 {
+            .hero-left .tagline::before {
+                margin: 0 auto;
+            }
+
+            .hero-left h2 {
                 font-size: 2rem;
             }
 
-            .hero p {
-                font-size: 1rem;
+            .hero-right .stat {
+                justify-content: center;
+            }
+
+            .hero-right .hero-img {
+                max-width: 200px;
+                margin: 0 auto 1rem;
+            }
+
+            .about-grant {
+                flex-direction: column;
             }
 
             nav ul {
@@ -248,87 +317,4 @@
                 <li><a href="#donate">Donate</a></li>
                 <li><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Contact</a></li>
             </ul>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <h2>Honoring Grant Through Music</h2>
-        <p>Support the Filer High School music program in memory of Grant Karel.</p>
-        <a href="#donate" class="btn">Donate Now</a>
-    </section>
-
-    <section class="section about-grant" id="about">
-        <div class="about-text">
-            <h3>About Grant Karel</h3>
-            <p>Grant Henry Karel, born December 15, 2005, in Jerome, Idaho, was a talented musician and a beloved member of the Filer community. He passed away on August 9, 2024, at the age of 18, leaving behind a legacy of love for music and the outdoors. Grant excelled academically, graduating in the top 10% of his class at Filer High School in 2024. His passion for music shone through his saxophone performances in the jazz band and his singing in the honor choir. He cherished playing the guitar and singing with his dad, Cody. Grant also loved the outdoors—kayaking, rafting, and snowboarding with his family. A devoted brother and friend, Grant’s faith and service to his community inspired everyone around him.</p>
-        </div>
-        <div class="about-img">
-            <img src="GrantKarel-FilerWildcatMusic.jpg" alt="Grant Karel playing saxophone in front of Filer High School">
-        </div>
-    </section>
-
-    <section class="section mission" id="mission">
-        <h3>Our Mission</h3>
-        <p>Inspired by Grant’s love for music, the Grant Henry Karel Music Foundation aims to support the arts at Filer High School. Our goal is to raise $200,000 to establish a trust that generates $10,000 annually for the music and arts programs. This includes a $1,000 scholarship each year for a graduating senior active in these programs. Our board is actively setting goals and bylaws, and we’re grateful for the support from the Filer school system and arts faculty. Together, we can enrich our community through music.</p>
-        <p><em>“I’m thankful for our close, caring community and the support we’ve received. Let’s continue to support our kids in these programs.”</em> – Cody Karel, Grant’s Father</p>
-    </section>
-
-    <section class="section impact" id="impact">
-        <h3>Our Impact</h3>
-        <div class="impact-grid">
-            <div class="impact-card">
-                <h4>Music Program Support</h4>
-                <p>Funds provide instruments, equipment, and resources for the Filer High School music program.</p>
-            </div>
-            <div class="impact-card">
-                <h4>Scholarships</h4>
-                <p>A $1,000 annual scholarship for a graduating senior in music/arts.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="section did-you-know" id="did-you-know">
-        <h3>Did You Know?</h3>
-        <ul>
-            <li>Music education accelerates brain development, especially in language and reading skills.</li>
-            <li>Students in music programs score higher on standardized tests and show improved math skills.</li>
-            <li>Schools with music programs have a 90.2% graduation rate, compared to 72.9% without.</li>
-            <li>Music fosters teamwork, confidence, and emotional resilience in children.</li>
-        </ul>
-    </section>
-
-    <section class="section community">
-        <h3>Join Our Community</h3>
-        <p>We invite you to share your memories of Grant and stories of how the Filer arts programs have impacted you. Follow us on <a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Facebook</a> to post and stay updated.</p>
-    </section>
-
-    <section class="section donate" id="donate">
-        <h3>Support the Grant Karel Memorial Fund</h3>
-        <p>Your donation directly benefits the Filer High School music program, funding instruments, equipment, and scholarships in Grant’s memory.</p>
-        <!-- PayPal Donate Button -->
-        <form action="https://www.paypal.com/donate" method="post" target="_top">
-            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL_OR_ID" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-        </form>
-        <p><em>Replace "YOUR_PAYPAL_EMAIL_OR_ID" with your PayPal account email or ID.</em></p>
-    </section>
-
-    <footer id="contact">
-        <p>© 2025 Grant Henry Karel Music Foundation. Empowering Filer’s youth through music and community.</p>
-        <p><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Follow us on Facebook</a></p>
-    </footer>
-
-    <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+        </nav
