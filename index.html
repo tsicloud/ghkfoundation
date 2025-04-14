@@ -317,4 +317,111 @@
                 <li><a href="#donate">Donate</a></li>
                 <li><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Contact</a></li>
             </ul>
-        </nav
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-left">
+            <div class="tagline">Empowering Filer’s Youth Through Music</div>
+            <h2>Honoring Grant Through Music</h2>
+            <img src="GrantKarel-FilerWildcatMusic.jpg" alt="Grant Karel playing saxophone in front of Filer High School" class="hero-img">
+        </div>
+        <div class="hero-right">
+            <img src="FilerWildcatsLoveMusic.jpg" alt="Tie-dye heart from Filer High School band shirts" class="hero-img">
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">Goal: $200,000</span>
+                    <span class="stat-label">Trust Fund</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">$10,000</span>
+                    <span class="stat-label">Annual Budget</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">$1,000</span>
+                    <span class="stat-label">Scholarship</span>
+                </div>
+            </div>
+            <p>Your support helps provide instruments, resources, and scholarships for Filer High School’s music program, honoring Grant’s legacy.</p>
+            <a href="#donate" class="btn">Donate Now</a>
+        </div>
+        <div class="sparkle sparkle-1">✦</div>
+        <div class="sparkle sparkle-2">✦</div>
+        <div class="sparkle sparkle-3">✦</div>
+    </section>
+
+    <section class="section about-grant" id="about">
+        <div class="about-text">
+            <h3>About Grant Karel</h3>
+            <p>Grant Henry Karel, born December 15, 2005, in Jerome, Idaho, was a talented musician and a beloved member of the Filer community. He passed away on August 9, 2024, at the age of 18, leaving behind a legacy of love for music and the outdoors. Grant excelled academically, graduating in the top 10% of his class at Filer High School in 2024. His passion for music shone through his saxophone performances in the jazz band and his singing in the honor choir. He cherished playing the guitar and singing with his dad, Cody. Grant also loved the outdoors—kayaking, rafting, and snowboarding with his family. A devoted brother and friend, Grant’s faith and service to his community inspired everyone around him.</p>
+        </div>
+        <div class="about-img">
+            <img src="GrantKarel-FilerWildcatMusic.jpg" alt="Grant Karel playing saxophone in front of Filer High School">
+        </div>
+    </section>
+
+    <section class="section mission" id="mission">
+        <h3>Our Mission</h3>
+        <p>Inspired by Grant’s love for music, the Grant Henry Karel Music Foundation aims to support the arts at Filer High School. Our goal is to raise $200,000 to establish a trust that generates $10,000 annually for the music and arts programs. This includes a $1,000 scholarship each year for a graduating senior active in these programs. Our board is actively setting goals and bylaws, and we’re grateful for the support from the Filer school system and arts faculty. Together, we can enrich our community through music.</p>
+        <p><em>“I’m thankful for our close, caring community and the support we’ve received. Let’s continue to support our kids in these programs.”</em> – Cody Karel, Grant’s Father</p>
+    </section>
+
+    <section class="section impact" id="impact">
+        <h3>Our Impact</h3>
+        <div class="impact-grid">
+            <div class="impact-card">
+                <h4>Music Program Support</h4>
+                <p>Funds provide instruments, equipment, and resources for the Filer High School music program.</p>
+            </div>
+            <div class="impact-card">
+                <h4>Scholarships</h4>
+                <p>A $1,000 annual scholarship for a graduating senior in music/arts.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section did-you-know" id="did-you-know">
+        <h3>Did You Know?</h3>
+        <ul>
+            <li>Music education accelerates brain development, especially in language and reading skills.</li>
+            <li>Students in music programs score higher on standardized tests and show improved math skills.</li>
+            <li>Schools with music programs have a 90.2% graduation rate, compared to 72.9% without.</li>
+            <li>Music fosters teamwork, confidence, and emotional resilience in children.</li>
+        </ul>
+    </section>
+
+    <section class="section community">
+        <h3>Join Our Community</h3>
+        <p>We invite you to share your memories of Grant and stories of how the Filer arts programs have impacted you. Follow us on <a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Facebook</a> to post and stay updated.</p>
+    </section>
+
+    <section class="section donate" id="donate">
+        <h3>Support the Grant Karel Memorial Fund</h3>
+        <p>Your donation directly benefits the Filer High School music program, funding instruments, equipment, and scholarships in Grant’s memory.</p>
+        <!-- PayPal Donate Button -->
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
+            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL_OR_ID" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+        </form>
+        <p><em>Replace "YOUR_PAYPAL_EMAIL_OR_ID" with your PayPal account email or ID.</em></p>
+    </section>
+
+    <footer id="contact">
+        <p>© 2025 Grant Henry Karel Music Foundation. Empowering Filer’s youth through music and community.</p>
+        <p><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Follow us on Facebook</a></p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
