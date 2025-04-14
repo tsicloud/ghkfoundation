@@ -20,7 +20,7 @@
 
         /* Header */
         header {
-            background: #003087;
+            background: #003087; /* Navy blue as secondary color */
             color: white;
             padding: 1rem 2rem;
             position: sticky;
@@ -48,7 +48,7 @@
         }
 
         nav a:hover {
-            color: #FFC107;
+            color: #C41E3A; /* Red for hover effect */
         }
 
         /* Hero */
@@ -71,7 +71,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 48, 135, 0.5);
+            background: rgba(0, 48, 135, 0.5); /* Navy blue overlay */
         }
 
         .hero h2 {
@@ -87,8 +87,8 @@
         }
 
         .btn {
-            background: #FFC107;
-            color: #333;
+            background: #C41E3A; /* Red as primary color */
+            color: white;
             padding: 0.8rem 1.5rem;
             text-decoration: none;
             border-radius: 5px;
@@ -97,7 +97,7 @@
         }
 
         .btn:hover {
-            background: #FFB300;
+            background: #A91B31; /* Slightly darker red for hover */
         }
 
         /* Sections */
@@ -111,7 +111,7 @@
             font-size: 2rem;
             margin-bottom: 1.5rem;
             text-align: center;
-            color: #003087;
+            color: #C41E3A; /* Red for headings */
         }
 
         /* About Grant Section */
@@ -137,6 +137,7 @@
         /* Mission Section */
         .mission {
             background: #F5F5F5;
+            text-align: center;
         }
 
         /* Impact Section */
@@ -157,12 +158,40 @@
         .impact-card h4 {
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
-            color: #003087;
+            color: #C41E3A; /* Red for card headings */
+        }
+
+        /* Did You Know Section */
+        .did-you-know {
+            background: #F5F5F5;
+        }
+
+        .did-you-know ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        .did-you-know li {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .did-you-know li::before {
+            content: "🎵 ";
         }
 
         /* Community Section */
         .community {
             background: #F5F5F5;
+        }
+
+        .community a {
+            color: #C41E3A; /* Red for links */
+            text-decoration: none;
+        }
+
+        .community a:hover {
+            color: #A91B31; /* Darker red for hover */
         }
 
         /* Donate Section */
@@ -172,19 +201,19 @@
 
         /* Footer */
         footer {
-            background: #003087;
+            background: #003087; /* Navy blue */
             color: white;
             text-align: center;
             padding: 2rem;
         }
 
         footer a {
-            color: #FFC107;
+            color: #C41E3A; /* Red for links */
             text-decoration: none;
         }
 
         footer a:hover {
-            color: #FFB300;
+            color: #A91B31; /* Darker red for hover */
         }
 
         /* Responsive */
@@ -214,8 +243,10 @@
             <ul>
                 <li><a href="#about">About Grant</a></li>
                 <li><a href="#mission">Our Mission</a></li>
+                <li><a href="#impact">Our Impact</a></li>
+                <li><a href="#did-you-know">Did You Know?</a></li>
                 <li><a href="#donate">Donate</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -232,7 +263,7 @@
             <p>Grant Henry Karel, born December 15, 2005, in Jerome, Idaho, was a talented musician and a beloved member of the Filer community. He passed away on August 9, 2024, at the age of 18, leaving behind a legacy of love for music and the outdoors. Grant excelled academically, graduating in the top 10% of his class at Filer High School in 2024. His passion for music shone through his saxophone performances in the jazz band and his singing in the honor choir. He cherished playing the guitar and singing with his dad, Cody. Grant also loved the outdoors—kayaking, rafting, and snowboarding with his family. A devoted brother and friend, Grant’s faith and service to his community inspired everyone around him.</p>
         </div>
         <div class="about-img">
-            <img src="https://via.placeholder.com/600x400?text=Grant+Karel+Memory" alt="Memory of Grant Karel">
+            <img src="GrantKarel-FilerWildcatMusic.jpg" alt="Grant Karel playing saxophone in front of Filer High School">
         </div>
     </section>
 
@@ -242,22 +273,28 @@
         <p><em>“I’m thankful for our close, caring community and the support we’ve received. Let’s continue to support our kids in these programs.”</em> – Cody Karel, Grant’s Father</p>
     </section>
 
-    <section class="section impact">
+    <section class="section impact" id="impact">
         <h3>Our Impact</h3>
         <div class="impact-grid">
             <div class="impact-card">
-                <h4>Instruments</h4>
-                <p>Funds provide violins, saxophones, and more for students in need.</p>
-            </div>
-            <div class="impact-card">
-                <h4>Lessons</h4>
-                <p>Support private lessons to help students grow their skills.</p>
+                <h4>Music Program Support</h4>
+                <p>Funds provide instruments, equipment, and resources for the Filer High School music program.</p>
             </div>
             <div class="impact-card">
                 <h4>Scholarships</h4>
                 <p>A $1,000 annual scholarship for a graduating senior in music/arts.</p>
             </div>
         </div>
+    </section>
+
+    <section class="section did-you-know" id="did-you-know">
+        <h3>Did You Know?</h3>
+        <ul>
+            <li>Music education accelerates brain development, especially in language and reading skills.</li>
+            <li>Students in music programs score higher on standardized tests and show improved math skills.</li>
+            <li>Schools with music programs have a 90.2% graduation rate, compared to 72.9% without.</li>
+            <li>Music fosters teamwork, confidence, and emotional resilience in children.</li>
+        </ul>
     </section>
 
     <section class="section community">
@@ -278,8 +315,8 @@
     </section>
 
     <footer id="contact">
-        <p>© 2025 Grant Henry Karel Music Foundation. Enriching Filer through music and community.</p>
-        <p><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Follow us on Facebook</a> | <a href="mailto:info@grantkarelmusic.org">info@grantkarelmusic.org</a></p>
+        <p>© 2025 Grant Henry Karel Music Foundation. Empowering Filer’s youth through music and community.</p>
+        <p><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Follow us on Facebook</a></p>
     </footer>
 
     <script>
