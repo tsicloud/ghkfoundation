@@ -10,95 +10,193 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
         }
 
         body {
-            line-height: 1.6;
             color: #333;
+            line-height: 1.6;
         }
 
+        /* Header */
         header {
-            background: #1a3c34;
+            background: #003087;
             color: white;
-            text-align: center;
-            padding: 1rem;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header h1 {
-            font-size: 2rem;
+            font-size: 1.5rem;
         }
 
-        .hero {
-            background: url('https://via.placeholder.com/1200x400?text=Music+Program') center/cover;
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
             color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #FFC107;
+        }
+
+        /* Hero */
+        .hero {
+            background: url('https://via.placeholder.com/1200x400?text=Students+Playing+Music') center/cover;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 4rem 1rem;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 48, 135, 0.5);
         }
 
         .hero h2 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            z-index: 1;
         }
 
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 1.5rem;
+            z-index: 1;
         }
 
         .btn {
-            background: #e67e22;
-            color: white;
+            background: #FFC107;
+            color: #333;
             padding: 0.8rem 1.5rem;
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
+            z-index: 1;
         }
 
         .btn:hover {
-            background: #d35400;
+            background: #FFB300;
         }
 
+        /* Sections */
         .section {
-            padding: 3rem 1rem;
-            max-width: 800px;
+            padding: 4rem 2rem;
+            max-width: 1200px;
             margin: 0 auto;
-            text-align: center;
         }
 
         .section h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #003087;
         }
 
+        /* About Section */
+        .about {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-img {
+            flex: 1;
+        }
+
+        .about-img img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Impact Section */
+        .impact {
+            background: #F5F5F5;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .impact-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .impact-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #003087;
+        }
+
+        /* Donate Section */
         .donate {
-            background: #f9f9f9;
+            text-align: center;
         }
 
+        /* Footer */
         footer {
-            background: #1a3c34;
+            background: #003087;
             color: white;
             text-align: center;
-            padding: 1rem;
-            margin-top: 2rem;
+            padding: 2rem;
         }
 
         footer a {
-            color: #e67e22;
+            color: #FFC107;
             text-decoration: none;
         }
 
-        @media (max-width: 600px) {
+        footer a:hover {
+            color: #FFB300;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about {
+                flex-direction: column;
+            }
+
             .hero h2 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
 
             .hero p {
                 font-size: 1rem;
             }
 
-            header h1 {
-                font-size: 1.5rem;
+            nav ul {
+                gap: 1rem;
             }
         }
     </style>
@@ -106,6 +204,13 @@
 <body>
     <header>
         <h1>Grant Henry Karel Music Foundation</h1>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#donate">Donate</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
     <section class="hero">
@@ -114,9 +219,32 @@
         <a href="#donate" class="btn">Donate Now</a>
     </section>
 
-    <section class="section">
-        <h3>About the Foundation</h3>
-        <p>Inspired by Grant Karel’s passion for music, our foundation provides instruments, lessons, and opportunities for Filer High School students to shine. We believe music builds community and transforms lives.</p>
+    <section class="section about" id="about">
+        <div class="about-text">
+            <h3>Our Mission</h3>
+            <p>Inspired by Grant Karel’s passion for music, our foundation provides instruments, lessons, and opportunities for Filer High School students to shine. We believe music builds community and transforms lives.</p>
+        </div>
+        <div class="about-img">
+            <img src="https://via.placeholder.com/600x400?text=Filer+High+School+Music" alt="Filer High School Music Program">
+        </div>
+    </section>
+
+    <section class="section impact">
+        <h3>Our Impact</h3>
+        <div class="impact-grid">
+            <div class="impact-card">
+                <h4>Instruments</h4>
+                <p>Donations provide violins, trumpets, and more for students in need.</p>
+            </div>
+            <div class="impact-card">
+                <h4>Lessons</h4>
+                <p>Fund private lessons to help students grow their skills.</p>
+            </div>
+            <div class="impact-card">
+                <h4>Performances</h4>
+                <p>Support concerts and competitions for young musicians.</p>
+            </div>
+        </div>
     </section>
 
     <section class="section donate" id="donate">
@@ -128,25 +256,23 @@
             <input type="hidden" name="currency_code" value="USD" />
             <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
         </form>
-        <p><em>Replace "YOUR_PAYPAL_EMAIL_OR_ID" with your PayPal account email or ID. For Stripe, use their Checkout integration instead.</em></p>
+        <p><em>Replace "YOUR_PAYPAL_EMAIL_OR_ID" with your PayPal account email or ID.</em></p>
     </section>
 
-    <section class="section">
-        <h3>Get Involved</h3>
-        <p>Join us by volunteering, attending events, or following our journey on <a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Facebook</a>.</p>
-        <p>Contact us at: <a href="mailto:info@grantkarelmusic.org">info@grantkarelmusic.org</a></p>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Grant Henry Karel Music Foundation. A nonprofit supporting Filer High School music education.</p>
-        <p><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Follow us on Facebook</a></p>
+    <footer id="contact">
+        <p>© 2025 Grant Henry Karel Music Foundation. Supporting Filer High School music education.</p>
+        <p><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Follow us on Facebook</a> | <a href="mailto:info@grantkarelmusic.org">info@grantkarelmusic.org</a></p>
     </footer>
 
     <script>
-        // Smooth scroll for Donate button
-        document.querySelector('.btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector('#donate').scrollIntoView({ behavior: 'smooth' });
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
     </script>
 </body>
