@@ -110,11 +110,36 @@
               <input type="number" id="amount" name="amount" min="100" step="100.0" placeholder=""
                      class="w-full border rounded px-3 py-2"/>
             </div>
-            <div class="space-y-2">
-              <label class="block font-semibold">Card Details</label>
-              <div id="card-element" class="w-full border rounded px-3 py-2"></div>
-              <div id="card-errors" role="alert" class="text-red-600 mt-2"></div>
-            </div>
+
+    <!-- Payment Method Selection -->
+    <div class="space-y-2">
+      <label class="block font-semibold">Payment Method</label>
+      <div class="flex items-center space-x-4">
+        <label class="inline-flex items-center">
+          <input type="radio" name="payment-method" value="card" class="form-radio"/>
+          <span class="ml-2">Credit Card</span>
+        </label>
+        <label class="inline-flex items-center">
+          <input type="radio" name="payment-method" value="us_bank_account" checked class="form-radio"/>
+          <span class="ml-2">ACH Bank Transfer</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Card Element -->
+    <div id="card-container" class="space-y-2 hidden">
+      <label class="block font-semibold">Card Details</label>
+      <div id="card-element" class="w-full border rounded px-3 py-2"></div>
+      <div id="card-errors" role="alert" class="text-red-600 mt-2"></div>
+    </div>
+
+    <!-- Bank Account Element -->
+    <div id="bank-container" class="space-y-2">
+      <label class="block font-semibold">Bank Details</label>
+      <div id="us-bank-element" class="w-full border rounded px-3 py-2"></div>
+      <div id="bank-errors" role="alert" class="text-red-600 mt-2"></div>
+    </div>
+
             <button type="submit"
                     class="w-full bg-red-600 hover:bg-red-800 text-white font-semibold px-6 py-3 rounded">
               Donate
@@ -157,8 +182,20 @@
       .getAttribute('content');
     const stripe = Stripe(publishableKey);
     const elements = stripe.elements();
-    const card = elements.create('card');
-    card.mount('#card-element');
+
+    // Create card and bank elements
+    const cardElement = elements.create('card');
+    cardElement.mount('#card-element');
+    const bankElement = elements.create('usBankAccount', { accountHolderType: 'individual' });
+    bankElement.mount('#us-bank-element');
+
+    // Toggle visibility based on radio selection
+    document.querySelectorAll('input[name="payment-method"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.getElementById('card-container').classList.toggle('hidden', radio.value !== 'card');
+        document.getElementById('bank-container').classList.toggle('hidden', radio.value !== 'us_bank_account');
+      });
+    });
 
     const form = document.getElementById('donation-form');
     // Format phone input as (xxx) xxx-xxxx on blur
@@ -198,16 +235,25 @@
         return;
       }
 
-      const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: card,
-          billing_details: { name, email, address }
-        }
-      });
+      const method = form['payment-method'].value;
 
-      if (error) {
-        document.getElementById('card-errors').textContent = error.message;
-      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+      let confirmResult;
+      if (method === 'card') {
+        confirmResult = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: { card: cardElement, billing_details: { name, email, address } }
+        });
+      } else {
+        confirmResult = await stripe.confirmUsBankAccountPayment(clientSecret, {
+          payment_method: { us_bank_account: bankElement, billing_details: { name, email, address } }
+        });
+      }
+      const { error: confirmError, paymentIntent } = confirmResult;
+      if (confirmError) {
+        document.getElementById(method === 'card' ? 'card-errors' : 'bank-errors').textContent = confirmError.message;
+        return;
+      }
+
+      if (paymentIntent && paymentIntent.status === 'succeeded') {
         // Redirect to success page with donor info
         const donationDollars = form.amount.value;
         const today = new Date().toLocaleDateString();

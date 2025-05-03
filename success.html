@@ -93,7 +93,7 @@
 
     <!-- Donation Details -->
     <div class="grid grid-cols-1 md:grid-cols-3 text-center font-semibold">
-      <div>Credit Card Donation</div>
+      <div id="r-method">Donation</div>
       <div></div>
       <div>$<span id="r-amount"></span></div>
     </div>
@@ -137,6 +137,13 @@
     document.getElementById('r-phone').textContent = formattedPhone;
     document.getElementById('r-amount').textContent = params.get('amount') || '0.00';
     document.getElementById('r-date').textContent = params.get('date') || new Date().toLocaleDateString();
+
+    // Display payment method
+    const methodParam = params.get('method');
+    const methodText = methodParam === 'us_bank_account'
+      ? 'ACH Direct Debit Donation'
+      : 'Credit Card Donation';
+    document.getElementById('r-method').textContent = methodText;
   </script>
 </main>
   <!-- Footer (same as index.html) -->
