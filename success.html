@@ -11,14 +11,16 @@
     @media print {
       /* Force full-width layout for receipt */
       @page { size: auto; margin: 1in; }
-      body { width: auto !important; font-size: 12pt !important; }
+      body { width: auto !important; font-size: 12pt !important; padding-top: 0 !important; margin: 0 !important; }
       .max-w-4xl { max-width: none !important; width: 100% !important; }
+      .px-4 { padding-left: 0 !important; padding-right: 0 !important; }
       /* Ensure flex layouts print in block flow */
       .flex { display: block !important; }
       /* Hide mobile menu toggle and buttons on print */
       .md\:hidden, button[onclick="window.print()"] { display: none !important; }
-      /* Always show header and footer if desired (remove print:hidden) */
       header, footer { display: none !important; }
+      /* Page size for mobile printers */
+      @page { size: letter portrait; }
     }
   </style>
 </head>
