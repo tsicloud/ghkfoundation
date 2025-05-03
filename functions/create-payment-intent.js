@@ -44,14 +44,22 @@ Date: ${new Date().toLocaleString()}
     }]
   };
 
-  await fetch('https://api.sendgrid.com/v3/mail/send', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${env.SENDGRID_API_KEY}`
-    },
-    body: JSON.stringify(msg)
-  });
+  try {
+    const emailRes = await fetch('https://api.sendgrid.com/v3/mail/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${env.SENDGRID_API_KEY}`
+      },
+      body: JSON.stringify(msg)
+    });
+    if (!emailRes.ok) {
+      const errBody = await emailRes.text();
+      console.error('SendGrid error:', emailRes.status, errBody);
+    }
+  } catch (err) {
+    console.error('Network error sending email:', err);
+  }
 
   // Return the client secret for front-end to confirm payment
   return new Response(JSON.stringify({ clientSecret: paymentIntent.client_secret }), {
