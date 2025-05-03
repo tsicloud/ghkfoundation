@@ -1,17 +1,15 @@
 import Stripe from 'stripe';
-import fetch from 'node-fetch';
-import { env } from '../env.js';
 
-const stripe = new Stripe(env.STRIPE_SECRET_KEY, { apiVersion: '2022-11-15' });
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2022-11-15' });
 
-export async function webhookHandler(req, res) {
-  const sig = req.headers['stripe-signature'];
+export async function onRequestPost({ request, env }) {
+  const sig = request.headers.get('stripe-signature');
   let event;
   try {
-    // req.rawBody contains the raw request payload
-    event = stripe.webhooks.constructEvent(req.rawBody, sig, env.STRIPE_WEBHOOK_SECRET);
+    const rawBody = await request.text();
+    event = stripe.webhooks.constructEvent(rawBody, sig, env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
-    return res.status(400).send(`Webhook Error: ${err.message}`);
+    return new Response(`Webhook Error: ${err.message}`, { status: 400 });
   }
 
   if (event.type === 'payment_intent.succeeded') {
@@ -57,5 +55,5 @@ Date: ${new Date(pi.created * 1000).toLocaleString()}
   }
 
   // Respond to Stripe
-  res.status(200).send('Received');
+  return new Response('Received', { status: 200 });
 }
