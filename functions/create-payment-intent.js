@@ -11,7 +11,7 @@ export async function onRequestPost({ request, env }) {
   const paymentIntent = await stripe.paymentIntents.create({
     amount,
     currency: 'usd',
-    payment_method_types: ['card'],
+    payment_method_types: ['card', 'us_bank_account'],
     receipt_email: email,
     metadata: {
       name,
