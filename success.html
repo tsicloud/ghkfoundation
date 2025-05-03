@@ -110,7 +110,14 @@
       params.get('postal_code')
     ].filter(Boolean).join(', ');
     document.getElementById('r-citystatezip').textContent = cityStateZip;
-    document.getElementById('r-phone').textContent = params.get('phone') || '';
+    // Format phone for display
+    const rawPhone = params.get('phone') || '';
+    const digits = rawPhone.replace(/\D/g, '');
+    let formattedPhone = rawPhone;
+    if (digits.length === 10) {
+      formattedPhone = `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`;
+    }
+    document.getElementById('r-phone').textContent = formattedPhone;
     document.getElementById('r-amount').textContent = params.get('amount') || '0.00';
     document.getElementById('r-date').textContent = params.get('date') || new Date().toLocaleDateString();
   </script>

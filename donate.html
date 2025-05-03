@@ -147,6 +147,18 @@
     card.mount('#card-element');
 
     const form = document.getElementById('donation-form');
+    // Format phone input as (xxx) xxx-xxxx on blur
+    const phoneInput = form.phone;
+    phoneInput.addEventListener('blur', () => {
+      let digits = phoneInput.value.replace(/\D/g, '');
+      if (digits.length === 10) {
+        const part1 = digits.slice(0, 3);
+        const part2 = digits.slice(3, 6);
+        const part3 = digits.slice(6, 10);
+        phoneInput.value = `(${part1}) ${part2}-${part3}`;
+      }
+    });
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = form.name.value;
