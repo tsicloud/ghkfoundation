@@ -56,7 +56,14 @@
       <div class="flex items-center space-x-4">
         <img src="GHKLogo.jpg" alt="GHK Music Foundation Logo" class="h-48 w-auto"/>
       </div>
-      <h1 class="text-2xl font-bold">Donation Receipt</h1>
+      <h1 id="invoice-title" class="text-2xl font-bold">Donation Receipt</h1>
+    </div>
+    <div id="ach-details" class="mt-4 space-y-2 hidden">
+      <p>Please send your donation using one of the following methods:</p>
+      <ul class="list-disc list-inside text-left">
+        <li><strong>ACH Credit Transfer:</strong> Routing Number: 123456789, Account Number: 000123456</li>
+        <li><strong>Mail a check to:</strong> GHK Music Foundation, 3915 Wildcat Way, Filer, ID 83328</li>
+      </ul>
     </div>
 
     <!-- Add Print Button -->
@@ -140,9 +147,18 @@
 
     // Display payment method
     const methodParam = params.get('method');
-    const methodText = methodParam === 'us_bank_account'
-      ? 'ACH Direct Debit Donation'
-      : 'Credit Card Donation';
+    let methodText;
+    if (methodParam === 'ach_credit_transfer') {
+      // Invoice mode for ACH Credit Transfer
+      document.getElementById('invoice-title').textContent = 'Donation Invoice';
+      document.getElementById('ach-details').classList.remove('hidden');
+      methodText = 'ACH Credit Transfer Donation';
+    } else {
+      // Default receipt mode for card
+      document.getElementById('invoice-title').textContent = 'Donation Receipt';
+      document.getElementById('ach-details').classList.add('hidden');
+      methodText = 'Credit Card Donation';
+    }
     document.getElementById('r-method').textContent = methodText;
   </script>
 </main>

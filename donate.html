@@ -219,7 +219,7 @@
       e.preventDefault();
       const method = form['payment-method'].value;
       if (method === 'ach_credit_transfer') {
-        // Redirect to invoice page
+        // Redirect to success page (was invoice.html)
         const donationDollars = form.amount.value;
         const today = new Date().toLocaleDateString();
         const params = new URLSearchParams({
@@ -233,7 +233,7 @@
           phone: form.phone.value,
           method: method
         });
-        window.location = `/invoice.html?${params.toString()}`;
+        window.location = `/success.html?${params.toString()}`;
         return;
       }
 
