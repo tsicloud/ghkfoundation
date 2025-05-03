@@ -65,10 +65,7 @@
           <h2 class="text-2xl font-semibold">Thank You for Donating</h2>
           <p>Your generosity helps provide instruments, equipment, and scholarships in Grant’s memory. We appreciate your support for the GHK Music Foundation.</p>
           <p class="text-gray-700">
-            We accept donations via <strong>Credit Card</strong> or <strong>ACH Bank Transfer</strong>. Our preferred method is <strong>ACH</strong>, as more of your donation goes directly to the foundation.
-          </p>
-          <p class="text-gray-700">
-            We use Stripe’s secure payment processing. Credit card donations incur a fee of 2.9% + $0.30 per transaction, while ACH transfers have a minimal flat fee of $1.00 per transaction. Your choice of payment helps us maximize the impact of your generosity.
+            We currently accept credit and debit card donations online.
           </p>
         </div>
         <!-- Stripe Donation Form -->
@@ -116,11 +113,36 @@
                      class="w-full border rounded px-3 py-2"/>
             </div>
 
-    <!-- Card Details -->
+    <!-- Payment Method Radio Buttons -->
     <div class="space-y-2">
+      <label class="inline-flex items-center">
+        <input type="radio" name="payment-method" value="card" class="form-radio"/>
+        <span class="ml-2">Credit Card</span>
+      </label>
+      <label class="inline-flex items-center">
+        <input type="radio" name="payment-method" value="ach_credit_transfer" checked class="form-radio"/>
+        <span class="ml-2">ACH Credit Transfer (Bank Bill Pay or Check)</span>
+      </label>
+    </div>
+
+    <!-- Card Details Container -->
+    <div id="card-container" class="space-y-2 hidden">
       <label class="block font-semibold">Card Details</label>
       <div id="card-element" class="w-full border rounded px-3 py-2"></div>
       <div id="card-errors" role="alert" class="text-red-600 mt-2"></div>
+    </div>
+
+    <!-- ACH Credit Transfer Instructions -->
+    <div id="ach-credit-instructions" class="space-y-4 hidden">
+      <h3 class="font-semibold">How to Send Your Donation</h3>
+      <p>Please use your bank’s bill payment feature (ACH Credit) or mail a check to:</p>
+      <p><strong>GHK Music Foundation</strong><br/>
+         3915 Wildcat Way<br/>
+         Filer, ID 83328</p>
+      <p>For ACH Credit, use:</p>
+      <p><strong>Routing Number:</strong> 123456789<br/>
+         <strong>Account Number:</strong> 000123456</p>
+      <p>Enter the donation amount below and click “Donate” to generate your invoice.</p>
     </div>
 
             <button type="submit"
@@ -183,8 +205,38 @@
       }
     });
 
+    // Show/hide containers based on payment method selection
+    const achInstructions = document.getElementById('ach-credit-instructions');
+    document.querySelectorAll('input[name="payment-method"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const method = radio.value;
+        document.getElementById('card-container').classList.toggle('hidden', method !== 'card');
+        achInstructions.classList.toggle('hidden', method !== 'ach_credit_transfer');
+      });
+    });
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const method = form['payment-method'].value;
+      if (method === 'ach_credit_transfer') {
+        // Redirect to invoice page
+        const donationDollars = form.amount.value;
+        const today = new Date().toLocaleDateString();
+        const params = new URLSearchParams({
+          name: form.name.value,
+          amount: donationDollars,
+          date: today,
+          address: form.address.value,
+          city: form.city.value,
+          state: form.state.value,
+          postal_code: form.postal_code.value,
+          phone: form.phone.value,
+          method: method
+        });
+        window.location = `/invoice.html?${params.toString()}`;
+        return;
+      }
+
       const name = form.name.value;
       const email = form.email.value;
       const address = {
