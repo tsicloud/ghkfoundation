@@ -188,7 +188,12 @@
         const params = new URLSearchParams({
           name: form.name.value,
           amount: donationDollars,
-          date: today
+          date: today,
+          address: form.address.value,
+          city: form.city.value,
+          state: form.state.value,
+          postal_code: form.postal_code.value,
+          phone: form.phone.value
         });
         window.location = `/success.html?${params.toString()}`;
       }
