@@ -7,11 +7,32 @@
 </head>
 <body class="font-sans text-gray-800">
   <!-- (Replicate your header here) -->
-  <main class="py-20 text-center">
-    <h1 class="text-4xl font-bold">Thank you for your donation!</h1>
-    <p class="mt-4">Your support means the world to us.</p>
-    <a href="index.html" class="mt-8 inline-block bg-red-600 text-white px-6 py-3 rounded">Back to Home</a>
-  </main>
+  <main class="py-20 px-4">
+  <div id="receipt" class="max-w-4xl mx-auto bg-white p-8 shadow print:p-0 print:shadow-none">
+    <h2 class="text-2xl font-semibold mb-4 text-center">Donation Receipt</h2>
+    <div class="mb-4">
+      <strong>Name:</strong> <span id="r-name"></span>
+    </div>
+    <div class="mb-4">
+      <strong>Donation Amount:</strong> $<span id="r-amount"></span>
+    </div>
+    <div class="mb-4">
+      <strong>Date:</strong> <span id="r-date"></span>
+    </div>
+    <p class="mt-6">Thank you for your generous support of the Grant Henry Karel Music Foundation. This receipt serves as your proof of donation for tax purposes.</p>
+    <div class="mt-8 flex justify-center space-x-4">
+      <button onclick="window.print()" class="bg-red-600 hover:bg-red-800 text-white px-6 py-2 rounded">Print Receipt</button>
+      <a href="index.html" class="bg-gray-300 hover:bg-gray-400 px-6 py-2 rounded">Home</a>
+    </div>
+  </div>
+  <script>
+    // Parse query params for name, amount, date
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById('r-name').textContent = params.get('name') || 'N/A';
+    document.getElementById('r-amount').textContent = params.get('amount') || '0.00';
+    document.getElementById('r-date').textContent = params.get('date') || new Date().toLocaleDateString();
+  </script>
+</main>
   <!-- (Replicate your footer here) -->
 </body>
 </html>
