@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Donate – Grant Henry Karel Music Foundation</title>
+  <meta name="stripe-publishable-key" content="pk_test_51RHrmOQ56xOzzJfWm3KTAkNnsfcsJgyLcDUKzofxBqj9lOtQimxYCC1suSJ1Mfd3ssEH5VbpZXnmOXdvihHmEAWq00PWsGF1G9">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="font-sans text-gray-800">
+  <!-- Header (same as index.html) -->
+  <header class="bg-red-700 text-white">
+    <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+      <h1 class="text-xl font-bold">Grant Henry Karel Music Foundation</h1>
+      <button id="menu-toggle" class="md:hidden focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <nav id="menu" class="hidden md:flex space-x-6">
+        <a href="index.html#about" class="hover:text-red-300">About</a>
+        <a href="index.html#mission" class="hover:text-red-300">Mission</a>
+        <a href="index.html#impact" class="hover:text-red-300">Impact</a>
+        <a href="index.html#did-you-know" class="hover:text-red-300">Did You Know?</a>
+        <a href="index.html#donate" class="hover:text-red-300 font-bold">Donate</a>
+      </nav>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden bg-red-600">
+      <a href="index.html#about" class="block px-4 py-2 hover:bg-red-500">About</a>
+      <a href="index.html#mission" class="block px-4 py-2 hover:bg-red-500">Mission</a>
+      <a href="index.html#impact" class="block px-4 py-2 hover:bg-red-500">Impact</a>
+      <a href="index.html#did-you-know" class="block px-4 py-2 hover:bg-red-500">Did You Know?</a>
+      <a href="index.html#donate" class="block px-4 py-2 hover:bg-red-500 font-bold">Donate</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="bg-gray-900 text-white py-20">
+      <div class="max-w-6xl mx-auto px-4">
+        <h1 class="text-4xl font-bold text-center">Donate</h1>
+      </div>
+    </section>
+
+    <!-- Donation Form & Thank You -->
+    <section class="py-16">
+      <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row gap-8">
+        <!-- Thank You Section -->
+        <div class="md:w-1/2 space-y-4">
+          <h2 class="text-2xl font-semibold">Thank You for Donating</h2>
+          <p>Your generosity helps provide instruments, equipment, and scholarships in Grant’s memory. We appreciate your support for the GHK Music Foundation.</p>
+        </div>
+        <!-- Stripe Donation Form -->
+        <div class="md:w-1/2">
+          <form id="donation-form">
+            <div class="space-y-4">
+              <label for="name" class="block font-semibold">Name</label>
+              <input type="text" id="name" name="name" required
+                     class="w-full border rounded px-3 py-2"/>
+            </div>
+            <div class="space-y-4">
+              <label for="email" class="block font-semibold">Email</label>
+              <input type="email" id="email" name="email" required
+                     class="w-full border rounded px-3 py-2"/>
+            </div>
+            <div class="space-y-4">
+              <label for="address" class="block font-semibold">Address</label>
+              <input type="text" id="address" name="address" placeholder="Street address" required
+                     class="w-full border rounded px-3 py-2"/>
+              <div class="grid grid-cols-2 gap-4 mt-2">
+                <input type="text" id="city" name="city" placeholder="City" required class="w-full border rounded px-3 py-2"/>
+                <input type="text" id="postal_code" name="postal_code" placeholder="Postal Code" required class="w-full border rounded px-3 py-2"/>
+              </div>
+              <input type="text" id="country" name="country" placeholder="Country" required class="w-full border rounded px-3 py-2 mt-2"/>
+            </div>
+            <div class="space-y-4">
+              <label for="amount" class="block font-semibold">Donation Amount (USD)</label>
+              <input type="number" id="amount" name="amount" min="1" step="0.01" placeholder="25.00"
+                     class="w-full border rounded px-3 py-2"/>
+            </div>
+            <div class="space-y-2">
+              <label class="block font-semibold">Card Details</label>
+              <div id="card-element" class="w-full border rounded px-3 py-2"></div>
+              <div id="card-errors" role="alert" class="text-red-600 mt-2"></div>
+            </div>
+            <button type="submit"
+                    class="w-full bg-red-600 hover:bg-red-800 text-white font-semibold px-6 py-3 rounded">
+              Donate
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer (same as index.html) -->
+  <footer class="bg-red-700 text-white py-8 text-center">
+    <p>© 2025 Grant Henry Karel Music Foundation. Empowering Filer’s youth through music and community.</p>
+    <p><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr" class="underline">Follow us on Facebook</a></p>
+  </footer>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    // Mobile menu toggle
+    const toggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    toggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // Smooth scroll for menu links
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const href = this.getAttribute('href');
+        if (href.startsWith('#')) {
+          document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.location = href;
+        }
+      });
+    });
+
+    // Stripe Elements integration
+    const publishableKey = document
+      .querySelector('meta[name="stripe-publishable-key"]')
+      .getAttribute('content');
+    const stripe = Stripe(publishableKey);
+    const elements = stripe.elements();
+    const card = elements.create('card');
+    card.mount('#card-element');
+
+    const form = document.getElementById('donation-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = form.name.value;
+      const email = form.email.value;
+      const address = {
+        line1: form.address.value,
+        city: form.city.value,
+        postal_code: form.postal_code.value,
+        country: form.country.value
+      };
+      const amount = Math.round(parseFloat(form.amount.value) * 100);
+
+      // Create PaymentIntent on the server
+      const {clientSecret, error: backendError} = await fetch('/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({amount, name, email, address})
+      }).then(r => r.json());
+
+      if (backendError) {
+        document.getElementById('card-errors').textContent = backendError;
+        return;
+      }
+
+      const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: { name, email, address }
+        }
+      });
+
+      if (error) {
+        document.getElementById('card-errors').textContent = error.message;
+      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+        window.location = '/success.html';
+      }
+    });
+  </script>
+</body>
+</html>

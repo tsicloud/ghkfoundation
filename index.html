@@ -1,427 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Grant Henry Karel Music Foundation supports the Filer High School music program in memory of Grant Karel through scholarships and arts funding.">
-    <title>Grant Henry Karel Music Foundation</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
-        body {
-            color: #333; /* Main body text black */
-            line-height: 1.6;
-        }
-
-        /* Header */
-        header {
-            background: #C41E3A; /* Red header background */
-            color: white;
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h1 {
-            font-size: 1.5rem;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            color: #A91B31; /* Darker red for hover */
-        }
-
-        /* Hero Section */
-        .hero {
-            background: #1C2526; /* Dark navy blue background */
-            color: white;
-            padding: 4rem 2rem;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .hero-left, .hero-right {
-            flex: 1;
-            max-width: 600px;
-        }
-
-        .hero-left .tagline {
-            font-size: 1rem;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            position: relative;
-        }
-
-        .hero-left .tagline::before {
-            content: '';
-            width: 50px;
-            height: 2px;
-            background: #C41E3A; /* Red line */
-            position: absolute;
-            top: -10px;
-        }
-
-        .hero-left h2 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-left .hero-img {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 50%;
-            border: 5px solid #C41E3A; /* Red border */
-        }
-
-        .hero-right .hero-img {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 50%;
-            border: 5px solid #C41E3A; /* Red border */
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-right .stats {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-right .stat {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .hero-right .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-        }
-
-        .hero-right .stat-label {
-            font-size: 1.1rem;
-        }
-
-        .hero-right p {
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero .sparkle {
-            position: absolute;
-            color: #C41E3A; /* Red sparkles */
-            font-size: 1.5rem;
-        }
-
-        .sparkle-1 { top: 20px; right: 20px; }
-        .sparkle-2 { top: 100px; left: 50px; }
-        .sparkle-3 { bottom: 50px; right: 100px; }
-
-        /* Sections */
-        .section {
-            padding: 4rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section h3 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            color: #003087; /* Navy blue for headings */
-        }
-
-        /* About Grant Section */
-        .about-grant {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .about-text {
-            flex: 1;
-        }
-
-        .about-img {
-            flex: 1;
-        }
-
-        .about-img img {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        /* Mission Section */
-        .mission {
-            background: #F5F5F5;
-            text-align: center;
-        }
-
-        /* Impact Section */
-        .impact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .impact-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .impact-card h4 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: #003087; /* Navy blue for card headings */
-        }
-
-        /* Did You Know Section */
-        .did-you-know {
-            background: #F5F5F5;
-        }
-
-        .did-you-know ul {
-            list-style: none;
-            text-align: center;
-        }
-
-        .did-you-know li {
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .did-you-know li::before {
-            content: "🎵 ";
-        }
-
-        /* Community Section */
-        .community {
-            background: #F5F5F5;
-        }
-
-        .community a {
-            color: #C41E3A; /* Red for links */
-            text-decoration: none;
-        }
-
-        .community a:hover {
-            color: #A91B31; /* Darker red for hover */
-        }
-
-        /* Donate Section */
-        .donate {
-            text-align: center;
-        }
-
-        .btn {
-            background: #C41E3A; /* Red for buttons */
-            color: white;
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            display: inline-block;
-        }
-
-        .btn:hover {
-            background: #A91B31; /* Darker red for hover */
-        }
-
-        /* Footer */
-        footer {
-            background: #C41E3A; /* Red footer background */
-            color: white;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        footer a {
-            color: white;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            color: #A91B31; /* Darker red for hover */
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .hero-left .tagline::before {
-                margin: 0 auto;
-            }
-
-            .hero-left h2 {
-                font-size: 2rem;
-            }
-
-            .hero-right .stat {
-                justify-content: center;
-            }
-
-            .hero-right .hero-img {
-                max-width: 200px;
-                margin: 0 auto 1rem;
-            }
-
-            .about-grant {
-                flex-direction: column;
-            }
-
-            nav ul {
-                gap: 1rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="description" content="Grant Henry Karel Music Foundation supports the Filer High School music program in memory of Grant Karel through scholarships and arts funding."/>
+  <title>Grant Henry Karel Music Foundation</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <header>
-        <h1>Grant Henry Karel Music Foundation</h1>
-        <nav>
-            <ul>
-                <li><a href="#about">About Grant</a></li>
-                <li><a href="#mission">Our Mission</a></li>
-                <li><a href="#impact">Our Impact</a></li>
-                <li><a href="#did-you-know">Did You Know?</a></li>
-                <li><a href="#donate">Donate</a></li>
-                <li><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+<body class="font-sans text-gray-800">
 
-    <section class="hero">
-        <div class="hero-left">
-            <div class="tagline">Empowering Filer’s Youth Through Music</div>
-            <h2>Honoring Grant Through Music</h2>
-            <img src="GrantKarel-FilerWildcatMusic.jpg" alt="Grant Karel playing saxophone in front of Filer High School" class="hero-img">
-        </div>
-        <div class="hero-right">
-            <img src="FilerWildcatsLoveMusic.jpg" alt="Tie-dye heart from Filer High School band shirts" class="hero-img">
-            <div class="stats">
-                <div class="stat">
-                    <span class="stat-number">Goal: $200,000</span>
-                    <span class="stat-label">Trust Fund</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">$10,000</span>
-                    <span class="stat-label">Annual Budget</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">$1,000</span>
-                    <span class="stat-label">Scholarship</span>
-                </div>
-            </div>
-            <p>Your support helps provide instruments, resources, and scholarships for Filer High School’s music program, honoring Grant’s legacy.</p>
-            <a href="#donate" class="btn">Donate Now</a>
-        </div>
-        <div class="sparkle sparkle-1">✦</div>
-        <div class="sparkle sparkle-2">✦</div>
-        <div class="sparkle sparkle-3">✦</div>
-    </section>
+  <!-- Header -->
+  <header class="bg-red-700 text-white">
+    <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+      <h1 class="text-xl font-bold">Grant Henry Karel Music Foundation</h1>
+      <button id="menu-toggle" class="md:hidden focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <nav id="menu" class="hidden md:flex space-x-6">
+        <a href="#about" class="hover:text-red-300">About</a>
+        <a href="#mission" class="hover:text-red-300">Mission</a>
+        <a href="#impact" class="hover:text-red-300">Impact</a>
+        <a href="#did-you-know" class="hover:text-red-300">Did You Know?</a>
+        <a href="#donate" class="hover:text-red-300 font-bold">Donate</a>
+      </nav>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden bg-red-600">
+      <a href="#about" class="block px-4 py-2 hover:bg-red-500">About</a>
+      <a href="#mission" class="block px-4 py-2 hover:bg-red-500">Mission</a>
+      <a href="#impact" class="block px-4 py-2 hover:bg-red-500">Impact</a>
+      <a href="#did-you-know" class="block px-4 py-2 hover:bg-red-500">Did You Know?</a>
+      <a href="#donate" class="block px-4 py-2 hover:bg-red-500 font-bold">Donate</a>
+    </div>
+  </header>
 
-    <section class="section about-grant" id="about">
-        <div class="about-text">
-            <h3>About Grant Karel</h3>
-            <p>Grant Henry Karel, born December 15, 2005, in Jerome, Idaho, was a talented musician and a beloved member of the Filer community. He passed away on August 9, 2024, at the age of 18, leaving behind a legacy of love for music and the outdoors. Grant excelled academically, graduating in the top 10% of his class at Filer High School in 2024. His passion for music shone through his saxophone performances in the jazz band and his singing in the honor choir. He cherished playing the guitar and singing with his dad, Cody. Grant also loved the outdoors—kayaking, rafting, and snowboarding with his family. A devoted brother and friend, Grant’s faith and service to his community inspired everyone around him.</p>
-        </div>
-        <div class="about-img">
-            <img src="GrantKarel-FilerWildcatMusic.jpg" alt="Grant Karel playing saxophone in front of Filer High School">
-        </div>
-    </section>
+<!-- Hero: replace this entire section -->
+<section class="bg-gray-900 text-white py-20">
+  <div class="max-w-6xl mx-auto px-4 space-y-12">
+    <!-- Heading block -->
+    <div class="grid grid-cols-1 md:grid-cols-3 items-center gap-8">
+      <div class="space-y-4 text-center md:text-left md:col-span-2">
+        <div class="w-10 h-1 bg-red-600 mb-2 mx-auto md:mx-0"></div>
+        <p class="uppercase text-sm tracking-wide text-gray-400">Empowering Filer’s youth through music</p>
+        <h1 class="text-4xl md:text-5xl font-bold">Honoring Grant Through Music</h1>
+      </div>
+      <div class="flex justify-center md:justify-end">
+        <img src="FilerWildcatsLoveMusic.jpg"
+             alt="Tie-dye heart"
+             class="rounded-full w-32 h-32 border-4 border-red-600 object-cover"/>
+      </div>
+    </div>
 
-    <section class="section mission" id="mission">
-        <h3>Our Mission</h3>
-        <p>Inspired by Grant’s love for music, the Grant Henry Karel Music Foundation aims to support the arts at Filer High School. Our goal is to raise $200,000 to establish a trust that generates $10,000 annually for the music and arts programs. This includes a $1,000 scholarship each year for a graduating senior active in these programs. Our board is actively setting goals and bylaws, and we’re grateful for the support from the Filer school system and arts faculty. Together, we can enrich our community through music.</p>
-        <p><em>“I’m thankful for our close, caring community and the support we’ve received. Let’s continue to support our kids in these programs.”</em> – Cody Karel, Grant’s Father</p>
-    </section>
-
-    <section class="section impact" id="impact">
-        <h3>Our Impact</h3>
-        <div class="impact-grid">
-            <div class="impact-card">
-                <h4>Music Program Support</h4>
-                <p>Funds provide instruments, equipment, and resources for the Filer High School music program.</p>
-            </div>
-            <div class="impact-card">
-                <h4>Scholarships</h4>
-                <p>A $1,000 annual scholarship for a graduating senior in music/arts.</p>
-            </div>
+    <!-- Main layout: photo and goals -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <!-- Photo -->
+      <div class="flex justify-center md:justify-start">
+        <img src="GrantKarel-FilerWildcatMusic.jpg"
+             alt="Grant playing sax"
+             class="rounded-full w-72 h-72 object-cover border-4 border-red-600"/>
+      </div>
+      <!-- Goals -->
+      <div class="bg-gray-800 p-8 rounded-lg space-y-6">
+        <h2 class="text-2xl font-semibold text-white">Our Goals</h2>
+        <div class="flex justify-between items-baseline">
+          <span class="text-2xl font-extrabold">$200,000</span>
+          <span class="text-sm uppercase">Trust Fund</span>
         </div>
-    </section>
+        <div class="flex justify-between items-baseline">
+          <span class="text-2xl font-extrabold">$10,000</span>
+          <span class="text-sm uppercase">Annual Budget</span>
+        </div>
+        <div class="flex justify-between items-baseline">
+          <span class="text-2xl font-extrabold">$1,000</span>
+          <span class="text-sm uppercase">Scholarship</span>
+        </div>
+        <p class="text-gray-300">
+          Your support helps provide instruments, resources, and scholarships for Filer High School’s music program, honoring Grant’s legacy.
+        </p>
+        <a href="#donate"
+           class="inline-block bg-red-600 hover:bg-red-800 px-6 py-3 rounded text-white font-semibold">
+          Donate Now
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+  <!-- End Hero -->
 
-    <section class="section did-you-know" id="did-you-know">
-        <h3>Did You Know?</h3>
-        <ul>
-            <li>Music education accelerates brain development, especially in language and reading skills.</li>
-            <li>Students in music programs score higher on standardized tests and show improved math skills.</li>
-            <li>Schools with music programs have a 90.2% graduation rate, compared to 72.9% without.</li>
-            <li>Music fosters teamwork, confidence, and emotional resilience in children.</li>
+  <!-- About -->
+  <section id="about" class="py-16">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
+      <div class="md:w-1/2">
+        <h3 class="text-3xl font-semibold mb-4 text-red-700">About Grant Karel</h3>
+        <p>Grant Henry Karel, born December 15, 2005, in Jerome, Idaho, was a talented musician and a beloved member of the Filer community. He passed away on August 9, 2024, at the age of 18, leaving behind a legacy of love for music and the outdoors. Grant excelled academically, graduating in the top 10% of his class at Filer High School in 2024. His passion for music shone through his saxophone performances in the jazz band and his singing in the honor choir. He cherished playing the guitar and singing with his dad, Cody. Grant also loved the outdoors—kayaking, rafting, and snowboarding with his family. A devoted brother and friend, Grant’s faith and service to his community inspired everyone around him.</p>
+      </div>
+      <div class="md:w-1/2">
+        <img src="GrantKarel-FilerWildcatMusic.jpg" alt="Grant playing sax" class="rounded-lg w-full object-cover shadow-lg"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section id="mission" class="bg-gray-100 py-16">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h3 class="text-3xl font-semibold mb-4 text-red-700">Our Mission</h3>
+      <p>Inspired by Grant’s love for music, the Grant Henry Karel Music Foundation aims to support the arts at Filer High School. Our goal is to raise $200,000 to establish a trust that generates $10,000 annually for the music and arts programs. This includes a $1,000 scholarship each year for a graduating senior active in these programs. Our board is actively setting goals and bylaws, and we’re grateful for the support from the Filer school system and arts faculty. Together, we can enrich our community through music.</p>
+      <p class="mt-4"><em>“I’m thankful for our close, caring community and the support we’ve received. Let’s continue to support our kids in these programs.”</em></p>
+      <p class="mt-2 text-right italic">— Cody Karel, Grant’s Father</p>
+    </div>
+  </section>
+
+  <!-- Impact -->
+  <section id="impact" class="py-16">
+    <div class="max-w-6xl mx-auto px-4 grid gap-8 md:grid-cols-2">
+      <div class="bg-white p-6 rounded shadow">
+        <h4 class="text-xl font-bold mb-2 text-red-700">Music Program Support</h4>
+        <p>Funding for instruments, equipment, and resources that enrich student learning.</p>
+      </div>
+      <div class="bg-white p-6 rounded shadow">
+        <h4 class="text-xl font-bold mb-2 text-red-700">Student Scholarships</h4>
+        <p>Annual $1,000 scholarship awarded to a graduating senior active in music and arts.</p>
+      </div>
+    </div>
+  </section>
+
+<!-- Did You Know -->
+<section id="did-you-know" class="bg-gray-100 py-16">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center gap-8">
+      <!-- Vertical Title on Left -->
+      <div class="md:w-1/4 flex items-center justify-center">
+        <h3 class="text-4xl md:text-5xl font-semibold text-red-700 transform md:-rotate-90 origin-center text-center">
+          Did You Know?
+        </h3>
+      </div>
+      <!-- Bullets on Right -->
+      <div class="md:w-3/4">
+        <ul class="list-disc list-inside space-y-6 text-2xl">
+          <li>Music education sharpens language and reading skills.</li>
+          <li>Participants in music programs score higher on standardized tests.</li>
+          <li>Graduation rates climb above 90% when music programs are strong.</li>
+          <li>Music fosters teamwork, confidence, and resilience.</li>
         </ul>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section class="section community">
-        <h3>Join Our Community</h3>
-        <p>We invite you to share your memories of Grant and stories of how the Filer arts programs have impacted you. Follow us on <a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Facebook</a> to post and stay updated.</p>
-    </section>
+  <!-- Community -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h3 class="text-3xl font-semibold mb-4 text-red-700">Join Our Community</h3>
+      <p>We invite you to share your memories of Grant and stories of how the Filer arts programs have impacted you. Follow us on <a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr" class="underline text-red-600 hover:text-red-800">Facebook</a> to post and stay updated.</p>
+    </div>
+  </section>
 
-    <section class="section donate" id="donate">
-        <h3>Support the Grant Karel Memorial Fund</h3>
-        <p>Your donation directly benefits the Filer High School music program, funding instruments, equipment, and scholarships in Grant’s memory.</p>
-        <!-- PayPal Donate Button -->
-        <form action="https://www.paypal.com/donate" method="post" target="_top">
-            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL_OR_ID" />
-            <input type="hidden" name="currency_code" value="USD" />
-            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-        </form>
-        <p><em>Replace "YOUR_PAYPAL_EMAIL_OR_ID" with your PayPal account email or ID.</em></p>
-    </section>
+  <!-- Donate -->
+  <section id="donate" class="py-16 text-center">
+    <div class="max-w-4xl mx-auto px-4">
+      <h3 class="text-3xl font-semibold mb-4 text-red-700">Support the Foundation</h3>
+      <p class="mb-6">Your donation directly benefits the Filer High School music program, funding instruments, equipment, and scholarships in Grant’s memory.</p>
+      <a href="https://buy.stripe.com/YOUR_PAYMENT_LINK" class="bg-red-600 hover:bg-red-800 px-8 py-4 rounded text-white font-bold">Donate with Stripe</a>
+    </div>
+  </section>
 
-    <footer id="contact">
-        <p>© 2025 Grant Henry Karel Music Foundation. Empowering Filer’s youth through music and community.</p>
-        <p><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr">Follow us on Facebook</a></p>
-    </footer>
+  <!-- Footer -->
+  <footer class="bg-red-700 text-white py-8 text-center">
+    <p>© 2025 Grant Henry Karel Music Foundation. Empowering Filer’s youth through music and community.</p>
+    <p><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr" class="underline">Follow us on Facebook</a></p>
+  </footer>
 
-    <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+  <script>
+    // Mobile menu toggle
+    const toggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    toggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor =>
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      })
+    );
+  </script>
+
 </body>
 </html>
+
