@@ -116,33 +116,11 @@
                      class="w-full border rounded px-3 py-2"/>
             </div>
 
-    <!-- Payment Method Selection -->
+    <!-- Card Details -->
     <div class="space-y-2">
-      <label class="block font-semibold">Payment Method</label>
-      <div class="flex items-center space-x-4">
-        <label class="inline-flex items-center">
-          <input type="radio" name="payment-method" value="card" class="form-radio"/>
-          <span class="ml-2">Credit Card</span>
-        </label>
-        <label class="inline-flex items-center">
-          <input type="radio" name="payment-method" value="us_bank_account" checked class="form-radio"/>
-          <span class="ml-2">ACH Bank Transfer</span>
-        </label>
-      </div>
-    </div>
-
-    <!-- Card Element -->
-    <div id="card-container" class="space-y-2 hidden">
       <label class="block font-semibold">Card Details</label>
       <div id="card-element" class="w-full border rounded px-3 py-2"></div>
       <div id="card-errors" role="alert" class="text-red-600 mt-2"></div>
-    </div>
-
-    <!-- Bank Account Element -->
-    <div id="bank-container" class="space-y-2">
-      <label class="block font-semibold">Bank Details</label>
-      <div id="us-bank-element" class="w-full border rounded px-3 py-2"></div>
-      <div id="bank-errors" role="alert" class="text-red-600 mt-2"></div>
     </div>
 
             <button type="submit"
@@ -188,19 +166,9 @@
     const stripe = Stripe(publishableKey);
     const elements = stripe.elements();
 
-    // Create card and bank elements
+    // Create card element
     const cardElement = elements.create('card');
     cardElement.mount('#card-element');
-    const bankElement = elements.create('usBankAccount', { accountHolderType: 'individual' });
-    bankElement.mount('#us-bank-element');
-
-    // Toggle visibility based on radio selection
-    document.querySelectorAll('input[name="payment-method"]').forEach(radio => {
-      radio.addEventListener('change', () => {
-        document.getElementById('card-container').classList.toggle('hidden', radio.value !== 'card');
-        document.getElementById('bank-container').classList.toggle('hidden', radio.value !== 'us_bank_account');
-      });
-    });
 
     const form = document.getElementById('donation-form');
     // Format phone input as (xxx) xxx-xxxx on blur
@@ -240,21 +208,12 @@
         return;
       }
 
-      const method = form['payment-method'].value;
+      const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: { card: cardElement, billing_details: { name, email, address } }
+      });
 
-      let confirmResult;
-      if (method === 'card') {
-        confirmResult = await stripe.confirmCardPayment(clientSecret, {
-          payment_method: { card: cardElement, billing_details: { name, email, address } }
-        });
-      } else {
-        confirmResult = await stripe.confirmUsBankAccountPayment(clientSecret, {
-          payment_method: { us_bank_account: bankElement, billing_details: { name, email, address } }
-        });
-      }
-      const { error: confirmError, paymentIntent } = confirmResult;
       if (confirmError) {
-        document.getElementById(method === 'card' ? 'card-errors' : 'bank-errors').textContent = confirmError.message;
+        document.getElementById('card-errors').textContent = confirmError.message;
         return;
       }
 
