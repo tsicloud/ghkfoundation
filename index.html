@@ -60,7 +60,7 @@
       <div class="flex justify-center md:justify-start">
         <img src="GrantKarel-FilerWildcatMusic.jpg"
              alt="Grant playing sax"
-             class="rounded-full w-72 h-72 object-cover border-4 border-red-600"/>
+             class="hero-img rounded-full w-72 h-72 object-cover border-4 border-red-600 transition-transform transition-opacity duration-700 ease-out"/>
       </div>
       <!-- Goals -->
       <div class="bg-gray-800 p-8 rounded-lg space-y-6">
@@ -209,6 +209,20 @@
         });
       }, { threshold: 0.1 });
       observer.observe(img);
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const img = document.querySelector('.hero-img');
+      // Hide initially via JS
+      img.classList.add('opacity-0', 'scale-50');
+      // Wait 1 second, then trigger pop and reveal on next frame
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          img.classList.remove('opacity-0', 'scale-50');
+          img.classList.add('opacity-100', 'scale-100');
+        });
+      }, 1000);
     });
   </script>
 
