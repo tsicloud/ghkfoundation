@@ -98,7 +98,7 @@
         <p>Grant Henry Karel, born December 15, 2005, in Jerome, Idaho, was a talented musician and a beloved member of the Filer community. He passed away on August 9, 2024, at the age of 18, leaving behind a legacy of love for music and the outdoors. Grant excelled academically, graduating in the top 10% of his class at Filer High School in 2024. His passion for music shone through his saxophone performances in the jazz band and his singing in the honor choir. He cherished playing the guitar and singing with his dad, Cody. Grant also loved the outdoors—kayaking, rafting, and snowboarding with his family. A devoted brother and friend, Grant’s faith and service to his community inspired everyone around him.</p>
       </div>
       <div class="md:w-1/2">
-        <img src="GrantKarel-FilerWildcatMusic.jpg" alt="Grant playing sax" class="rounded-lg w-full object-cover shadow-lg"/>
+        <img src="GrantKarel-FilerWildcatMusic.jpg" alt="Grant playing sax" class="about-img rounded-lg w-full object-cover shadow-lg transition-all duration-700 ease-out"/>
       </div>
     </div>
   </section>
@@ -183,6 +183,23 @@
         document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
       })
     );
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const img = document.querySelector('.about-img');
+      // If JS is enabled, hide image initially before animation
+      img.classList.add('opacity-0', 'translate-x-full');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            img.classList.remove('opacity-0', 'translate-x-full');
+            img.classList.add('opacity-100', 'translate-x-0');
+            observer.unobserve(img);
+          }
+        });
+      }, { threshold: 0.1 });
+      observer.observe(img);
+    });
   </script>
 
 </body>
