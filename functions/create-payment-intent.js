@@ -1,10 +1,9 @@
 import Stripe from 'stripe';
-// Read secret key from environment
-const stripe = new Stripe(STRIPE_SECRET_KEY, { apiVersion: '2022-11-15' });
 
-export async function onRequestPost(context) {
+export async function onRequestPost({ request, env }) {
+  const stripe = new Stripe(env.STRIPE_SECRET_KEY, { apiVersion: '2022-11-15' });
   try {
-    const { amount, name, email, address } = await context.request.json();
+    const { amount, name, email, address } = await request.json();
 
     // (Optional) create a Customer for repeat donors
     const customer = await stripe.customers.create({ name, email, address });
