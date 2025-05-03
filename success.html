@@ -6,6 +6,32 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="font-sans text-gray-800">
+  <!-- Header -->
+  <header class="bg-red-700 text-white">
+    <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+      <h1 class="text-xl font-bold">Grant Henry Karel Music Foundation</h1>
+      <button id="menu-toggle" class="md:hidden focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <nav id="menu" class="hidden md:flex space-x-6">
+        <a href="index.html#about" class="hover:text-red-300">About</a>
+        <a href="index.html#mission" class="hover:text-red-300">Mission</a>
+        <a href="index.html#impact" class="hover:text-red-300">Impact</a>
+        <a href="index.html#did-you-know" class="hover:text-red-300">Did You Know?</a>
+        <a href="index.html" class="hover:text-red-300 font-bold">Home</a>
+      </nav>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden bg-red-600">
+      <a href="index.html#about" class="block px-4 py-2 hover:bg-red-500">About</a>
+      <a href="index.html#mission" class="block px-4 py-2 hover:bg-red-500">Mission</a>
+      <a href="index.html#impact" class="block px-4 py-2 hover:bg-red-500">Impact</a>
+      <a href="index.html#did-you-know" class="block px-4 py-2 hover:bg-red-500">Did You Know?</a>
+      <a href="index.html" class="block px-4 py-2 hover:bg-red-500 font-bold">Home</a>
+    </div>
+  </header>
   <!-- (Replicate your header here) -->
   <main class="py-20 px-4">
   <div id="receipt" class="max-w-4xl mx-auto bg-white p-8 shadow print:p-0 print:shadow-none">
@@ -32,7 +58,17 @@
     document.getElementById('r-amount').textContent = params.get('amount') || '0.00';
     document.getElementById('r-date').textContent = params.get('date') || new Date().toLocaleDateString();
   </script>
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  toggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+</script>
 </main>
   <!-- (Replicate your footer here) -->
+  <!-- Footer -->
+  <footer class="bg-red-700 text-white py-8 text-center">
+    <p>© 2025 Grant Henry Karel Music Foundation</p>
+    <p><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr" class="underline">Follow us on Facebook</a></p>
+  </footer>
 </body>
 </html>

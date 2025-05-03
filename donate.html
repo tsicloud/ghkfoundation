@@ -182,7 +182,15 @@
       if (error) {
         document.getElementById('card-errors').textContent = error.message;
       } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-        window.location = '/success.html';
+        // Redirect to success page with donor info
+        const donationDollars = form.amount.value;
+        const today = new Date().toLocaleDateString();
+        const params = new URLSearchParams({
+          name: form.name.value,
+          amount: donationDollars,
+          date: today
+        });
+        window.location = `/success.html?${params.toString()}`;
       }
     });
   </script>
