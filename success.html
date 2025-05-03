@@ -4,12 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Donation Receipt</title>
+</head>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media print {
+      /* Force full-width layout for receipt */
+      @page { size: auto; margin: 1in; }
+      body { width: auto !important; font-size: 12pt !important; }
+      .max-w-4xl { max-width: none !important; width: 100% !important; }
+      /* Ensure flex layouts print in block flow */
+      .flex { display: block !important; }
+      /* Hide mobile menu toggle and buttons on print */
+      .md\:hidden, button[onclick="window.print()"] { display: none !important; }
+      /* Always show header and footer if desired (remove print:hidden) */
+      header, footer { display: none !important; }
+    }
+  </style>
 </head>
 <body class="font-sans text-gray-800 bg-gray-100">
   <!-- Header (same as index.html) -->
-  <header class="bg-red-700 text-white print:hidden">
+  <header class="bg-red-700 text-white">
     <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
       <h1 class="text-xl font-bold">Grant Henry Karel Music Foundation</h1>
       <nav class="hidden md:flex space-x-6">
@@ -123,7 +138,7 @@
   </script>
 </main>
   <!-- Footer (same as index.html) -->
-  <footer class="bg-red-700 text-white py-8 text-center mt-12 print:hidden">
+  <footer class="bg-red-700 text-white py-8 text-center mt-12">
     <p>© 2025 Grant Henry Karel Music Foundation</p>
     <p><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr" class="underline">Follow us on Facebook</a></p>
   </footer>
