@@ -1,74 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Thank You!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donation Receipt</title>
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="font-sans text-gray-800">
-  <!-- Header -->
-  <header class="bg-red-700 text-white">
+<body class="font-sans text-gray-800 bg-gray-100">
+  <!-- Header (same as index.html) -->
+  <header class="bg-red-700 text-white print:hidden">
     <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
       <h1 class="text-xl font-bold">Grant Henry Karel Music Foundation</h1>
+      <nav class="hidden md:flex space-x-6">
+        <a href="index.html#about" class="hover:text-red-300">About</a>
+        <a href="index.html#mission" class="hover:text-red-300">Mission</a>
+        <a href="index.html#impact" class="hover:text-red-300">Impact</a>
+        <a href="donate.html" class="hover:text-red-300 font-bold">Donate</a>
+      </nav>
       <button id="menu-toggle" class="md:hidden focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
-      <nav id="menu" class="hidden md:flex space-x-6">
-        <a href="index.html#about" class="hover:text-red-300">About</a>
-        <a href="index.html#mission" class="hover:text-red-300">Mission</a>
-        <a href="index.html#impact" class="hover:text-red-300">Impact</a>
-        <a href="index.html#did-you-know" class="hover:text-red-300">Did You Know?</a>
-        <a href="index.html" class="hover:text-red-300 font-bold">Home</a>
-      </nav>
     </div>
     <div id="mobile-menu" class="md:hidden hidden bg-red-600">
       <a href="index.html#about" class="block px-4 py-2 hover:bg-red-500">About</a>
       <a href="index.html#mission" class="block px-4 py-2 hover:bg-red-500">Mission</a>
       <a href="index.html#impact" class="block px-4 py-2 hover:bg-red-500">Impact</a>
-      <a href="index.html#did-you-know" class="block px-4 py-2 hover:bg-red-500">Did You Know?</a>
-      <a href="index.html" class="block px-4 py-2 hover:bg-red-500 font-bold">Home</a>
+      <a href="donate.html" class="block px-4 py-2 hover:bg-red-500 font-bold">Donate</a>
     </div>
   </header>
-  <!-- (Replicate your header here) -->
-  <main class="py-20 px-4">
-  <div id="receipt" class="max-w-4xl mx-auto bg-white p-8 shadow print:p-0 print:shadow-none">
-    <h2 class="text-2xl font-semibold mb-4 text-center">Donation Receipt</h2>
-    <div class="mb-4">
-      <strong>Name:</strong> <span id="r-name"></span>
+<main class="py-20 px-4">
+  <div class="max-w-4xl mx-auto bg-white p-8 shadow print:p-0 print:shadow-none">
+    <!-- Header Row -->
+    <div class="flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <img src="GHKLogo.jpg" alt="GHK Music Foundation Logo" class="h-12 w-auto"/>
+      </div>
+      <h1 class="text-2xl font-bold">Donation Receipt</h1>
     </div>
-    <div class="mb-4">
-      <strong>Donation Amount:</strong> $<span id="r-amount"></span>
+    <!-- Add Print Button -->
+    <div class="flex justify-end mb-4 print:hidden">
+      <button onclick="window.print()" class="bg-red-600 hover:bg-red-800 text-white px-4 py-2 rounded">
+        Print Receipt
+      </button>
     </div>
-    <div class="mb-4">
+
+    <!-- From / To -->
+    <div class="flex flex-col md:flex-row justify-between mt-8 gap-8">
+      <!-- Donation From -->
+      <div class="md:w-1/2 space-y-1">
+        <h3 class="font-semibold">Donation From:</h3>
+        <p id="r-name"></p>
+        <p id="r-address"></p>
+        <p id="r-phone"></p>
+      </div>
+      <!-- Pay To -->
+      <div class="md:w-1/2 space-y-1">
+        <h3 class="font-semibold">Pay To:</h3>
+        <p>GHK Music Foundation Donation</p>
+        <p>3915 Wildcat Way</p>
+        <p>Filer, ID 83328</p>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <hr class="border-t-2 border-red-600 my-8"/>
+
+    <!-- Donation Details -->
+    <div class="grid grid-cols-1 md:grid-cols-3 text-center font-semibold">
+      <div>Credit Card Donation</div>
+      <div></div>
+      <div>$<span id="r-amount"></span></div>
+    </div>
+    <div class="flex justify-between mt-4 font-semibold">
+      <span>Total</span>
+      <span>$<span id="r-amount"></span></span>
+    </div>
+    <div class="mt-4">
       <strong>Date:</strong> <span id="r-date"></span>
     </div>
-    <p class="mt-6">Thank you for your generous support of the Grant Henry Karel Music Foundation. This receipt serves as your proof of donation for tax purposes.</p>
-    <div class="mt-8 flex justify-center space-x-4">
-      <button onclick="window.print()" class="bg-red-600 hover:bg-red-800 text-white px-6 py-2 rounded">Print Receipt</button>
-      <a href="index.html" class="bg-gray-300 hover:bg-gray-400 px-6 py-2 rounded">Home</a>
+
+    <!-- Thank You Note -->
+    <div class="mt-8">
+      <h3 class="text-xl font-semibold">Thank You!</h3>
+      <p>We are immensely grateful for your generous donation. Your support helps sustain music programs and keeps Grant’s legacy alive in our community.</p>
+    </div>
+
+    <!-- Decorative footer graphic (replace with actual SVG or image) -->
+    <div class="mt-12">
+      <img src="assets/images/footer-wave.png" alt="" class="w-full"/>
     </div>
   </div>
+
   <script>
-    // Parse query params for name, amount, date
     const params = new URLSearchParams(window.location.search);
-    document.getElementById('r-name').textContent = params.get('name') || 'N/A';
+    document.getElementById('r-name').textContent = params.get('name') || '';
+    const addressStr = [
+      params.get('address'),
+      params.get('city'),
+      params.get('state'),
+      params.get('postal_code')
+    ].filter(Boolean).join(', ');
+    document.getElementById('r-address').textContent = addressStr;
+    document.getElementById('r-phone').textContent = params.get('phone') || '';
     document.getElementById('r-amount').textContent = params.get('amount') || '0.00';
     document.getElementById('r-date').textContent = params.get('date') || new Date().toLocaleDateString();
   </script>
-<script>
-  const toggle = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  toggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-</script>
 </main>
-  <!-- (Replicate your footer here) -->
-  <!-- Footer -->
-  <footer class="bg-red-700 text-white py-8 text-center">
+  <!-- Footer (same as index.html) -->
+  <footer class="bg-red-700 text-white py-8 text-center mt-12 print:hidden">
     <p>© 2025 Grant Henry Karel Music Foundation</p>
     <p><a href="https://www.facebook.com/share/15o4EwHXyW/?mibextid=wwXIfr" class="underline">Follow us on Facebook</a></p>
   </footer>
+
+  <!-- Mobile menu toggle -->
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    toggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+  </script>
 </body>
 </html>
