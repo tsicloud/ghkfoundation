@@ -216,14 +216,17 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const img = document.querySelector('.hero-img');
-      // Hide initially via JS
+      // Hide and shrink initially
       img.classList.add('opacity-0', 'scale-50');
-      // Wait 1 second, then trigger pop and reveal on next frame
+      // After 1s, pop to 150% and fade in
       setTimeout(() => {
-        requestAnimationFrame(() => {
-          img.classList.remove('opacity-0', 'scale-50');
-          img.classList.add('opacity-100', 'scale-100');
-        });
+        img.classList.remove('opacity-0', 'scale-50');
+        img.classList.add('opacity-100', 'scale-150');
+        // After another 0.5s, settle back to 100%
+        setTimeout(() => {
+          img.classList.remove('scale-150');
+          img.classList.add('scale-100');
+        }, 500);
       }, 1000);
     });
   </script>
