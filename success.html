@@ -37,7 +37,7 @@
     <!-- Header Row -->
     <div class="flex justify-between items-center">
       <div class="flex items-center space-x-4">
-        <img src="GHKLogo.jpg" alt="GHK Music Foundation Logo" class="h-12 w-auto"/>
+        <img src="GHKLogo.jpg" alt="GHK Music Foundation Logo" class="h-24 w-auto"/>
       </div>
       <h1 class="text-2xl font-bold">Donation Receipt</h1>
     </div>
@@ -54,7 +54,8 @@
       <div class="md:w-1/2 space-y-1">
         <h3 class="font-semibold">Donation From:</h3>
         <p id="r-name"></p>
-        <p id="r-address"></p>
+        <p id="r-street"></p>
+        <p id="r-citystatezip"></p>
         <p id="r-phone"></p>
       </div>
       <!-- Pay To -->
@@ -63,6 +64,7 @@
         <p>GHK Music Foundation Donation</p>
         <p>3915 Wildcat Way</p>
         <p>Filer, ID 83328</p>
+        <p>EIN: 12-3456789</p>
       </div>
     </div>
 
@@ -98,13 +100,15 @@
   <script>
     const params = new URLSearchParams(window.location.search);
     document.getElementById('r-name').textContent = params.get('name') || '';
-    const addressStr = [
-      params.get('address'),
+    // Street address
+    document.getElementById('r-street').textContent = params.get('address') || '';
+    // City, state & ZIP
+    const cityStateZip = [
       params.get('city'),
       params.get('state'),
       params.get('postal_code')
     ].filter(Boolean).join(', ');
-    document.getElementById('r-address').textContent = addressStr;
+    document.getElementById('r-citystatezip').textContent = cityStateZip;
     document.getElementById('r-phone').textContent = params.get('phone') || '';
     document.getElementById('r-amount').textContent = params.get('amount') || '0.00';
     document.getElementById('r-date').textContent = params.get('date') || new Date().toLocaleDateString();
