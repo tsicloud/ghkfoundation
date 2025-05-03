@@ -1,47 +1,60 @@
 import Stripe from 'stripe';
-import sendgrid from '@sendgrid/mail';
-
-const stripe = new Stripe(env.STRIPE_SECRET_KEY, { apiVersion: '2022-11-15' });
-sendgrid.setApiKey(env.SENDGRID_API_KEY);
 
 export async function onRequestPost({ request, env }) {
-  const sig = request.headers.get('stripe-signature');
-  let event;
-  try {
-    event = stripe.webhooks.constructEvent(
-      await request.text(),
-      sig,
-      env.STRIPE_WEBHOOK_SECRET
-    );
-  } catch (err) {
-    return new Response(`Webhook Error: ${err.message}`, { status: 400 });
-  }
+  // Parse donation request
+  const { amount, name, email, address, phone, method } = await request.json();
 
-  if (event.type === 'payment_intent.succeeded') {
-    const pi = event.data.object;
-    const { name, email, address, phone, method } = pi.metadata;
-    const amount = (pi.amount_received / 100).toFixed(2);
-    const methodText = method === 'ach_credit_transfer'
-      ? 'ACH Credit Transfer'
-      : 'Credit Card';
+  // Initialize Stripe
+  const stripe = new Stripe(env.STRIPE_SECRET_KEY, { apiVersion: '2022-11-15' });
 
-    const msg = {
-      to: env.BOARD_EMAIL,
-      from: 'no-reply@ghkmusicfoundation.org',
-      subject: `New Donation (${methodText}) from ${name}`,
-      text: `
-A new donation has been received:
+  // Create PaymentIntent
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount,
+    currency: 'usd',
+    payment_method_types: ['card'],
+    receipt_email: email,
+    metadata: {
+      name,
+      email,
+      phone,
+      method,
+      address: `${address.line1}, ${address.city}, ${address.state} ${address.postal_code}`
+    }
+  });
+
+  // Send notification email via SendGrid HTTP API
+  const msg = {
+    personalizations: [{
+      to: [{ email: env.BOARD_EMAIL }],
+      subject: `New Donation (${method === 'ach_credit_transfer' ? 'ACH' : 'Card'}) from ${name}`
+    }],
+    from: { email: 'no-reply@ghkmusicfoundation.org', name: 'GHK Music Foundation' },
+    content: [{
+      type: 'text/plain',
+      value: `
+A new donation has been initiated:
 Name: ${name}
 Email: ${email}
-Phone: ${phone || 'N/A'}
-Address: ${address}
-Method: ${methodText}
-Amount: $${amount}
-Date: ${new Date(pi.created * 1000).toLocaleString()}
+Phone: ${phone}
+Address: ${address.line1}, ${address.city}, ${address.state} ${address.postal_code}
+Method: ${method === 'ach_credit_transfer' ? 'ACH Credit Transfer' : 'Credit Card'}
+Amount: $${(amount / 100).toFixed(2)}
+Date: ${new Date().toLocaleString()}
       `
-    };
-    await sendgrid.send(msg);
-  }
+    }]
+  };
 
-  return new Response('Received', { status: 200 });
+  await fetch('https://api.sendgrid.com/v3/mail/send', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${env.SENDGRID_API_KEY}`
+    },
+    body: JSON.stringify(msg)
+  });
+
+  // Return the client secret for front-end to confirm payment
+  return new Response(JSON.stringify({ clientSecret: paymentIntent.client_secret }), {
+    headers: { 'Content-Type': 'application/json' }
+  });
 }
