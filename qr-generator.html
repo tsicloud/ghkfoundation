@@ -5,7 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>QR Code Generator</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script>
+    // Try multiple CDNs to load the QRCode library
+    window.__qrLoaded = false;
+    async function loadQRCodeLib() {
+      const sources = [
+        "https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js",
+        "https://unpkg.com/qrcode@1.5.3/build/qrcode.min.js",
+        "https://fastly.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"
+      ];
+      for (const src of sources) {
+        try {
+          await new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = src;
+            s.onload = () => resolve();
+            s.onerror = () => reject(new Error('Failed: ' + src));
+            document.head.appendChild(s);
+          });
+          if (window.QRCode) {
+            window.__qrLoaded = true;
+            return true;
+          }
+        } catch (e) { /* try next */ }
+      }
+      return false;
+    }
+  </script>
 </head>
 <body class="min-h-screen bg-gray-50 text-gray-900">
   <div class="max-w-3xl mx-auto p-6">
@@ -68,7 +94,7 @@
           <div id="previewWrap" class="bg-white border rounded-lg p-4 shadow-sm">
             <canvas id="qrCanvas" width="256" height="256" class="block"></canvas>
           </div>
-          <p id="status" class="text-sm text-gray-500 mt-3">Ready.</p>
+          <p id="status" class="text-sm text-gray-500 mt-3">Loading libraries…</p>
         </div>
       </div>
     </section>
@@ -102,7 +128,20 @@
     svgBtn.disabled = !enable;
   }
 
-  function generateQR() {
+  async function ensureLib() {
+    if (window.__qrLoaded && window.QRCode) return true;
+    setStatus('Loading QR library…');
+    const ok = await loadQRCodeLib();
+    if (!ok) {
+      setStatus('Failed to load QR library. Open in a full browser or check your connection.');
+      return false;
+    }
+    setStatus('Ready.');
+    return true;
+  }
+
+  async function generateQR() {
+    if (!(await ensureLib())) return;
     const text = textarea.value.trim();
     if (!text) {
       setStatus('Enter some text or a URL to generate a QR code.');
@@ -123,7 +162,7 @@
     canvas.height = size;
 
     setStatus('Generating…');
-    QRCode.toCanvas(
+    window.QRCode.toCanvas(
       canvas,
       text,
       {
@@ -156,6 +195,7 @@
   }
 
   async function downloadSvg() {
+    if (!(await ensureLib())) return;
     const text = textarea.value.trim();
     if (!text) return;
 
@@ -166,7 +206,7 @@
       const dark = darkColorInput.value || '#000000';
       const light = lightColorInput.value || '#ffffff';
 
-      const svgString = await QRCode.toString(text, {
+      const svgString = await window.QRCode.toString(text, {
         type: 'svg',
         width: size,
         margin: margin,
@@ -199,9 +239,12 @@
   svgBtn.addEventListener('click', downloadSvg);
   clearBtn.addEventListener('click', clearAll);
 
-  // Generate a starter QR so the canvas isn't empty
-  textarea.value = 'https://example.com';
-  generateQR();
+  // Auto-load the library and render a starter QR so the canvas isn't empty
+  (async () => {
+    await ensureLib();
+    textarea.value = 'https://example.com';
+    await generateQR();
+  })();
 </script>
 </body>
 </html>
