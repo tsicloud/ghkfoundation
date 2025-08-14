@@ -1,171 +1,81 @@
-(function () {
-  const textarea = document.getElementById('qrText');
-  const sizeInput = document.getElementById('size');
-  const marginInput = document.getElementById('margin');
-  const eccSelect = document.getElementById('ecc');
-  const darkColorInput = document.getElementById('darkColor');
-  const lightColorInput = document.getElementById('lightColor');
-  const canvas = document.getElementById('qrCanvas');
-  const statusEl = document.getElementById('status');
-  const previewWrap = document.getElementById('previewWrap');
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QR Code Generator</title>
+  <script src="/assets/qrcode.min.js" defer></script>
+  <script src="/assets/qr-app.js" defer></script>
+</head>
+<body>
+  <div>
+    <header>
+      <h1>QR Code Generator</h1>
+      <p>Type any text or URL, tweak options, and download as PNG or SVG.</p>
+    </header>
 
-  const genBtn = document.getElementById('generateBtn');
-  const pngBtn = document.getElementById('downloadPngBtn');
-  const svgBtn = document.getElementById('downloadSvgBtn');
-  const clearBtn = document.getElementById('clearBtn');
+    <section>
+      <div>
+        <div>
+          <div>
+            <label for="qrText">Text / URL</label>
+            <textarea id="qrText" rows="4" placeholder="https://example.com"></textarea>
+          </div>
 
-  function setStatus(msg) { if (statusEl) statusEl.textContent = msg; }
-  function enableDownloads(enablePng, enableSvg) {
-    if (pngBtn) pngBtn.disabled = !enablePng;
-    if (svgBtn) svgBtn.disabled = !enableSvg;
-  }
+          <div>
+            <div>
+              <label for="size">Size (px)</label>
+              <input id="size" type="number" min="64" step="8" value="256">
+            </div>
+            <div>
+              <label for="margin">Margin (modules)</label>
+              <input id="margin" type="number" min="0" max="16" value="4">
+            </div>
+          </div>
 
-  function getOpts() {
-    return {
-      text: (textarea?.value || '').trim(),
-      size: Math.max(64, parseInt(sizeInput?.value || '256', 10)),
-      margin: Math.max(0, parseInt(marginInput?.value || '4', 10)),
-      ecc: (eccSelect?.value || 'M'),
-      dark: darkColorInput?.value || '#000000',
-      light: lightColorInput?.value || '#ffffff'
-    };
-  }
+          <div>
+            <div>
+              <label for="ecc">Error Correction</label>
+              <select id="ecc">
+                <option value="L">L (Low ~7%)</option>
+                <option value="M" selected>M (Medium ~15%)</option>
+                <option value="Q">Q (Quartile ~25%)</option>
+                <option value="H">H (High ~30%)</option>
+              </select>
+            </div>
+            <div>
+              <div>
+                <label for="darkColor">QR Color</label>
+                <input id="darkColor" type="color" value="#000000">
+              </div>
+              <div>
+                <label for="lightColor">Background</label>
+                <input id="lightColor" type="color" value="#ffffff">
+              </div>
+            </div>
+          </div>
 
-  function clearCanvas() {
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
+          <div>
+            <button id="generateBtn">Generate</button>
+            <button id="downloadPngBtn">Download PNG</button>
+            <button id="downloadSvgBtn">Download SVG</button>
+            <button id="clearBtn">Clear</button>
+          </div>
+          <p>Tip: Use higher error correction (Q/H) if you’ll add a logo on top or expect the code to get slightly damaged.</p>
+        </div>
 
-  function isSoldairAPI() {
-    return !!(window.QRCode && typeof window.QRCode.toCanvas === 'function');
-  }
+        <div>
+          <div id="previewWrap">
+            <canvas id="qrCanvas" width="256" height="256"></canvas>
+          </div>
+          <p id="status">Loading libraries…</p>
+        </div>
+      </div>
+    </section>
 
-  function isShimAPI() {
-    // davidshimjs/qrcodejs exposes constructor and CorrectLevel enum
-    return !!(window.QRCode && typeof window.QRCode === 'function' && window.QRCode.CorrectLevel);
-  }
-
-  function eccToCorrectLevel(ecc) {
-    // Map L/M/Q/H to qrcodejs levels
-    const lv = (window.QRCode && window.QRCode.CorrectLevel) || {};
-    const map = { L: lv.L, M: lv.M, Q: lv.Q, H: lv.H };
-    return map[ecc] || lv.M;
-  }
-
-  async function generateQR() {
-    const { text, size, margin, ecc, dark, light } = getOpts();
-    if (!text) {
-      setStatus('Enter some text or a URL to generate a QR code.');
-      enableDownloads(false, false);
-      clearCanvas();
-      return;
-    }
-
-    // Prefer soldair API if present
-    if (isSoldairAPI()) {
-      canvas.width = size; canvas.height = size;
-      setStatus('Generating…');
-      window.QRCode.toCanvas(
-        canvas,
-        text,
-        { width: size, margin, errorCorrectionLevel: ecc, color: { dark, light } },
-        function (err) {
-          if (err) {
-            console.error(err);
-            setStatus('Error: ' + err.message);
-            enableDownloads(false, false);
-          } else {
-            setStatus('Done. You can download as PNG or SVG.');
-            enableDownloads(true, true);
-          }
-        }
-      );
-      return;
-    }
-
-    // Fallback to davidshimjs qrcode.js API
-    if (isShimAPI()) {
-      setStatus('Generating…');
-      // Clear wrapper and render inside it.
-      if (previewWrap) previewWrap.innerHTML = '';
-      const holder = document.createElement('div');
-      if (previewWrap) previewWrap.appendChild(holder);
-      try {
-        // qrcode.js renders <canvas> or <img> inside holder
-        /* global QRCode */
-        new window.QRCode(holder, {
-          text,
-          width: size,
-          height: size,
-          colorDark: dark,
-          colorLight: light,
-          correctLevel: eccToCorrectLevel(ecc)
-        });
-        setStatus('Done. (SVG download not available with this local library)');
-        enableDownloads(true, false); // PNG only
-      } catch (e) {
-        console.error(e);
-        setStatus('Error: ' + e.message);
-        enableDownloads(false, false);
-      }
-      return;
-    }
-
-    setStatus('QR library not loaded. Ensure /assets/qrcode.min.js is present.');
-    enableDownloads(false, false);
-  }
-
-  function downloadPng() {
-    // Try canvas from soldair API first (our fixed <canvas>)
-    let cnv = canvas;
-    // Or canvas generated by qrcodejs inside previewWrap
-    if ((!cnv || !cnv.getContext) && previewWrap) {
-      cnv = previewWrap.querySelector('canvas');
-    }
-    if (!cnv || !cnv.toDataURL) {
-      setStatus('PNG download unavailable. No canvas found.');
-      return;
-    }
-    const link = document.createElement('a');
-    link.download = 'qr.png';
-    link.href = cnv.toDataURL('image/png');
-    link.click();
-  }
-
-  async function downloadSvg() {
-    if (!isSoldairAPI()) {
-      setStatus('SVG download not supported with this local library.');
-      return;
-    }
-    const { text, size, margin, ecc, dark, light } = getOpts();
-    try {
-      const svgString = await window.QRCode.toString(text, {
-        type: 'svg', width: size, margin, errorCorrectionLevel: ecc, color: { dark, light }
-      });
-      const blob = new Blob([svgString], { type: 'image/svg+xml' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'qr.svg'; a.click();
-      URL.revokeObjectURL(url);
-    } catch (e) {
-      console.error(e);
-      setStatus('SVG error: ' + e.message);
-    }
-  }
-
-  function clearAll() {
-    if (textarea) textarea.value = '';
-    setStatus('Cleared.');
-    enableDownloads(false, false);
-    clearCanvas();
-    if (previewWrap) previewWrap.innerHTML = '<canvas id="qrCanvas" width="256" height="256"></canvas>';
-  }
-
-  genBtn?.addEventListener('click', generateQR);
-  pngBtn?.addEventListener('click', downloadPng);
-  svgBtn?.addEventListener('click', downloadSvg);
-  clearBtn?.addEventListener('click', clearAll);
-
-  if (textarea) textarea.value = 'https://example.com';
-  setStatus('Ready.');
-})();
+    <footer>
+      <p>Built with <code>qrcode</code> JS library. No data is sent anywhere; it all runs in your browser.</p>
+    </footer>
+  </div>
+</body>
+</html>
